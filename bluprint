@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>K3NQXX</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lyno+Ulys&family=Arial+Narrow&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lyno+Ulys&family=Lyno+Walt&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Lyno Ulys', serif;
-            background-color: #f4f4f4;
+            background-color: black;
             margin: 0;
-            padding: 0;
+            padding: 20px; /* Added padding for better spacing */
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
-            animation: flash 1s infinite;
+            overflow: hidden; /* Prevent overflow from floating letters */
+            text-align: center; /* Center all text */
         }
 
         header {
@@ -27,70 +28,87 @@
         }
 
         h1 {
-            text-align: center;
             margin-top: 20px;
+            color: white;
+            font-size: 2.5em;
+            text-shadow: 0 0 5px pink, 0 0 10px pink, 0 0 15px pink; /* Glow effect */
+            animation: flicker 0.1s infinite alternate; /* Flicker effect */
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .subheader {
+            color: white;
+            font-size: 1.5em;
+            margin: 10px 0; /* Centering adjustment */
         }
 
         .social-links {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            gap: 40px; /* Increased gap for more spread */
+            margin-top: 20px; /* Space above social links */
         }
 
         .social-links a {
             text-decoration: none;
-            color: #0056b3;
-            background-color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-family: 'Arial Narrow', sans-serif;
-            font-size: 1.1em;
-            width: 200px;
-            text-align: center;
-            border: 2px solid #007bff;
-            transition: background-color 0.3s;
+            color: white;
+            font-family: 'Lyno Walt', serif; /* Changed to Lyno Walt */
+            font-size: 1em; /* Smaller than subheader */
+            transition: color 0.3s, text-shadow 0.3s; /* Added text-shadow transition */
         }
 
         .social-links a:hover {
-            background-color: #007bff;
-            color: white;
+            color: pink; /* Change text color to pink */
+            text-shadow: 0 0 10px pink; /* Glow effect */
         }
 
         .social-links .subheader {
             font-family: 'Lyno Ulys', serif;
-            font-size: 0.9em;
-            color: #333;
+            font-size: 1.5em; /* Subheader size */
+            color: white;
             margin-bottom: 10px;
         }
 
-        @keyframes flash {
-            0% { background-color: white; }
-            50% { background-color: black; }
-            100% { background-color: white; }
-        }
-
-        /* Letters animation */
+        /* Floating letters */
         .letter {
             position: absolute;
-            color: rgba(255, 255, 255, 0.2); /* Faint letters */
+            color: pink; /* Floating letters in pink */
+            font-family: 'Lyno Ulys', serif; /* Floating text in Lyno Ulys */
             font-weight: bold;
-            animation: move 5s infinite ease-in-out;
+            animation: move 5s infinite ease-in-out, fade 5s infinite; /* Move and fade animation */
         }
 
         @keyframes move {
             0% { transform: translate(0, 0); }
-            100% { transform: translate(100vw, 100vh); }
+            100% { transform: translate(var(--x), var(--y)); } /* Random directions */
         }
 
+        @keyframes fade {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
     </style>
 </head>
 <body>
+
+    <!-- Background sound -->
+    <audio autoplay loop>
+        <source src="your-audio-file.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
     <!-- Header where your image will appear -->
     <header id="header-photo"></header>
 
     <h1>To exist is to transcend the material</h1>
+
+    <p class="subheader">The journey beyond the mind</p>
 
     <!-- Social media links section -->
     <div class="social-links">
@@ -100,7 +118,7 @@
         </div>
         <div>
             <div class="subheader">Soundcloud</div>
-            <a href="https://soundcloud.com/k3nqxx" target="_blank">Twitter Profile</a>
+            <a href="https://soundcloud.com/k3nqxx" target="_blank">Soundcloud Profile</a> 
         </div>
     </div>
 
@@ -118,16 +136,17 @@
             letter.classList.add('letter');
             letter.innerText = letters[Math.floor(Math.random() * letters.length)];
 
-            // Random size, font, and position
+            // Random size, position, and direction
             letter.style.fontSize = `${Math.random() * 100 + 20}px`;
             letter.style.left = `${Math.random() * 100}vw`;
             letter.style.top = `${Math.random() * 100}vh`;
-            letter.style.fontFamily = Math.random() > 0.5 ? 'Arial, sans-serif' : 'Courier, monospace';
+            letter.style.setProperty('--x', `${(Math.random() * 200 - 100)}vw`); // Random horizontal movement
+            letter.style.setProperty('--y', `${(Math.random() * 200 - 100)}vh`); // Random vertical movement
 
             document.body.appendChild(letter);
 
             // Remove the letter after some time
-            setTimeout(() => letter.remove(), 5000);
+            setTimeout(() => letter.remove(), Math.random() * 5000 + 2000); // Random removal time
         }
 
         // Create multiple letters at intervals
@@ -136,3 +155,4 @@
 
 </body>
 </html>
+
